@@ -31,20 +31,22 @@ export class RegisterPage {
       rut: ['', Validators.required],
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required],
-      tipo: ['alumno', Validators.required], // por defecto "alumno"
+      tipo: ['alumno', Validators.required],
+      nombre: ['', Validators.required] // por defecto "alumno"
     });
   }
 
-  async registrar() {
-    if (this.form.invalid) return;
+    async registrar() {
+      if (this.form.invalid) return;
 
-    const { rut, correo, contrasena, tipo } = this.form.value;
+      const { rut, correo, contrasena, tipo, nombre } = this.form.value;
 
-    try {
-      await this.authService.register(rut, correo, contrasena, tipo);
-      this.router.navigate(['/login']);
-    } catch (err: any) {
-      this.error = err.message;
+      try {
+        await this.authService.register(rut, correo, contrasena, tipo, nombre);
+        this.router.navigate(['/login']);
+      } catch (err: any) {
+        this.error = err.message;
+      }
     }
-  }
+
 }

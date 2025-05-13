@@ -19,7 +19,12 @@ export class HomeAlumnoPage implements OnInit {
     this.authService.logout();
   }
 
+  nombre: string = '';
+  tipo: string = '';
+
   ngOnInit() {
+  this.nombre = localStorage.getItem('nombre') || '';
+  this.tipo = localStorage.getItem('tipo') || '';    
   }
 
 }

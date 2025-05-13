@@ -1,0 +1,37 @@
+ion-content {
+  --background: black; 
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.bienvenida-container {
+  width: 100%;
+}
+
+ion-card {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+ion-card-subtitle {
+  font-size: 1.3rem;
+  color: #888;
+}
+
+ion-card-title {
+  font-size: 2.4rem;
+  font-weight: bold;
+}
+
+.bienvenida-container {
+  display: flex;
+  justify-content: center; 
+  margin-bottom: 20px; 
+}
+
+ion-card {
+  width: 90%; 
+  max-width: 400px; 
+}

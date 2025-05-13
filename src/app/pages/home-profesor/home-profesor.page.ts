@@ -18,8 +18,13 @@ export class HomeProfesorPage implements OnInit {
   logout() {
     this.authService.logout();
   }
+  
+  nombre: string = '';
+  tipo: string = '';
 
   ngOnInit() {
+  this.nombre = localStorage.getItem('nombre') || '';
+  this.tipo = localStorage.getItem('tipo') || '';    
   }
 
 }

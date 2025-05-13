@@ -20,7 +20,7 @@ export class AuthService {
     return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
   }
 
-  async register(rut: string, correo: string, contrasena: string, tipo: string) {
+  async register(rut: string, correo: string, contrasena: string, tipo: string, nombre: string) {
     const userRef = doc(this.firestore, `usuarios/${rut}`);
     const userSnap = await getDoc(userRef);
 
@@ -34,52 +34,60 @@ export class AuthService {
       rut,
       correo,
       contrasena: hashedPassword,
-      tipo
+      tipo,
+      nombre
     });
 
     return true;
   }
 
-  async login(correo: string, contrasena: string) {
-    console.log('Buscando usuario con correo:', correo);
+async login(correo: string, contrasena: string) {
+  console.log('Buscando usuario con correo:', correo);
 
-    const usuariosRef = collection(this.firestore, 'usuarios');
-    const q = query(usuariosRef, where('correo', '==', correo));
-    const snap = await getDocs(q);
+  const usuariosRef = collection(this.firestore, 'usuarios');
+  const q = query(usuariosRef, where('correo', '==', correo));
+  const snap = await getDocs(q);
 
-    if (snap.empty) {
-      console.log('No se encontró el usuario');
-      throw new Error('Usuario no encontrado');
-    }
-
-    const data: any = snap.docs[0].data();
-    console.log('Usuario encontrado:', data);
-
-    const hashed = await this.hashPassword(contrasena);
-    console.log('Hash ingresado:', hashed);
-    console.log('Hash almacenado:', data.contrasena);
-
-    if (data.contrasena !== hashed) {
-      console.log('Contraseña incorrecta');
-      throw new Error('Contraseña incorrecta');
-    }
-
-    console.log('Redirigiendo según tipo:', data.tipo);
-
-    switch (data.tipo) {
-      case 'administrador':
-        this.router.navigate(['/admin-home']);
-        break;
-      case 'profesor':
-        this.router.navigate(['/profesor-home']);
-        break;
-      case 'alumno':
-        this.router.navigate(['/alumno-home']);
-        break;
-      default:
-        throw new Error('Tipo de usuario no válido');
-    }
+  if (snap.empty) {
+    console.log('No se encontró el usuario');
+    throw new Error('Usuario no encontrado');
   }
+
+  const docSnap = snap.docs[0];
+  const data: any = docSnap.data();
+  console.log('Usuario encontrado:', data);
+
+  const hashed = await this.hashPassword(contrasena);
+  console.log('Hash ingresado:', hashed);
+  console.log('Hash almacenado:', data.contrasena);
+
+  if (data.contrasena !== hashed) {
+    console.log('Contraseña incorrecta');
+    throw new Error('Contraseña incorrecta');
+  }
+
+  
+  localStorage.setItem('rut', docSnap.id);
+  localStorage.setItem('nombre', data.nombre);
+  localStorage.setItem('tipo', data.tipo);
+
+  console.log('Redirigiendo según tipo:', data.tipo);
+
+  switch (data.tipo) {
+    case 'administrador':
+      this.router.navigate(['/admin-home']);
+      break;
+    case 'profesor':
+      this.router.navigate(['/profesor-home']);
+      break;
+    case 'alumno':
+      this.router.navigate(['/alumno-home']);
+      break;
+    default:
+      throw new Error('Tipo de usuario no válido');
+  }
+}
+
 
 
   logout() {
