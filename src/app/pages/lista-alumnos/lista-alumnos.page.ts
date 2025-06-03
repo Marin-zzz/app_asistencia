@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { IonicModule} from '@ionic/angular';
+import { IonicModule } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { arrowBackOutline } from 'ionicons/icons';
-
+import { AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import {
   Firestore,
@@ -19,7 +19,6 @@ import {
   updateDoc,
   addDoc
 } from '@angular/fire/firestore';
-
 
 addIcons({
   'arrow-back-outline': arrowBackOutline
@@ -43,28 +42,45 @@ export class ListaAlumnosPage implements OnInit {
   cargando: boolean = true;
   asistenciaDocId: string | null = null;
 
-  constructor(private route: ActivatedRoute, private firestore: Firestore,private router: Router) {}
+  constructor(
+    private route: ActivatedRoute,
+    private firestore: Firestore,
+    private router: Router,
+    private alertCtrl: AlertController
+  ) {}
 
   async ngOnInit() {
     this.asignaturaId = this.route.snapshot.queryParamMap.get('id') || '';
 
-    // Obtengo datos asignatura
     const asigDoc = await getDoc(doc(this.firestore, 'asignaturas', this.asignaturaId));
     this.asignatura = asigDoc.data();
 
-    // Busco si ya existe asistencia guardada para esta asignatura (sin importar fecha)
     const ref = collection(this.firestore, 'asistencias');
     const q = query(ref, where('asignaturaId', '==', this.asignaturaId));
     const snap = await getDocs(q);
 
     if (snap.docs.length > 0) {
-      // Cargo la primera asistencia guardada para esta asignatura
       const asistenciaDoc = snap.docs[0];
       this.asistenciaDocId = asistenciaDoc.id;
       this.alumnos = asistenciaDoc.data()['alumnos'];
-      console.log('✅ Asistencia cargada:', this.alumnos);
+
+      // 🔄 Revisar si hay alumnos nuevos que no estén en la asistencia ya registrada
+      for (const rut of this.asignatura.alumnos) {
+        const yaExiste = this.alumnos.some((a) => a.rut === rut);
+        if (!yaExiste) {
+          const alumnoDoc = await getDoc(doc(this.firestore, 'usuarios', rut));
+          if (alumnoDoc.exists()) {
+            const data = alumnoDoc.data();
+            this.alumnos.push({
+              rut,
+              nombre: data['nombre'],
+              estado: 'presente'
+            });
+          }
+        }
+      }
     } else {
-      // Si no hay asistencia guardada, creo la lista desde asignatura con estado 'presente'
+      // 🔄 Asistencia nueva: cargar todos los alumnos
       const lista: any[] = [];
       for (const rut of this.asignatura.alumnos) {
         const alumnoDoc = await getDoc(doc(this.firestore, 'usuarios', rut));
@@ -78,10 +94,18 @@ export class ListaAlumnosPage implements OnInit {
         }
       }
       this.alumnos = lista;
-      console.log('⚠️ No hay asistencia previa. Lista generada.');
     }
 
     this.cargando = false;
+  }
+
+  async mostrarAlerta(titulo: string, mensaje: string) {
+    const alert = await this.alertCtrl.create({
+      header: titulo,
+      message: mensaje,
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 
   async cambiarEstado(index: number, nuevo: string) {
@@ -96,15 +120,13 @@ export class ListaAlumnosPage implements OnInit {
       const asistenciaRef = doc(this.firestore, 'asistencias', this.asistenciaDocId);
       await updateDoc(asistenciaRef, {
         alumnos: this.alumnos,
-        fechaActualizacion: fechaHoraChile  // <-- nueva fecha de actualización
+        fechaActualizacion: fechaHoraChile
       });
-      console.log('✅ Estado y fecha de actualización guardados en Firestore');
     }
   }
 
   async guardarAsistencia() {
     if (!this.asistenciaDocId) {
-      // Creo documento por primera vez
       const fechaHoraChile = new Date().toLocaleString('es-CL', {
         timeZone: 'America/Santiago',
         hour12: false
@@ -121,12 +143,12 @@ export class ListaAlumnosPage implements OnInit {
 
       const docRef = await addDoc(collection(this.firestore, 'asistencias'), asistencia);
       this.asistenciaDocId = docRef.id;
-      alert('✅ Asistencia guardada correctamente');
+      await this.mostrarAlerta('Éxito', 'Asistencia guardada correctamente');
     } else {
-      alert('✅ Todos los cambios ya están guardados automáticamente');
+      await this.mostrarAlerta('Éxito', 'Cambios guardados correctamente');
     }
   }
-  
+
   volverHome() {
     this.router.navigate(['/profesor-home']);
   }

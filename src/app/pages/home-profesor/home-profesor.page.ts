@@ -27,12 +27,9 @@ export class HomeProfesorPage implements OnInit {
     private authService: AuthService,
     private firestore: Firestore,
     private router: Router
-  ) {
-    console.log('Constructor ejecutado');
-  }
+  ) {}
 
   async ngOnInit() {
-    console.log('ngOnInit ejecutado');
     this.nombre = localStorage.getItem('nombre') || '';
     this.tipo = localStorage.getItem('tipo') || '';
     this.userEmail = localStorage.getItem('correo') || 'No encontrado';
@@ -48,7 +45,6 @@ export class HomeProfesorPage implements OnInit {
       }
     };
 
-    console.log('Datos del usuario:', this.debugInfo);
     await this.cargarAsignaturas();
     this.loading = false;
 
@@ -61,16 +57,10 @@ export class HomeProfesorPage implements OnInit {
 
   verLocalStorage() {
     this.showDebugInfo = !this.showDebugInfo;
-    console.log('LocalStorage completo:', {
-      correo: localStorage.getItem('correo'),
-      nombre: localStorage.getItem('nombre'),
-      tipo: localStorage.getItem('tipo')
-    });
   }
 
   async cargarAsignaturas() {
     const correo = localStorage.getItem('correo');
-    console.log('Correo del profesor:', correo);
 
     const ref = collection(this.firestore, 'asignaturas');
     const q = query(ref, where('profesores', 'array-contains', correo));
@@ -88,7 +78,6 @@ export class HomeProfesorPage implements OnInit {
     }));
 
     this.asignaturas = todas.filter(a => a.dia === diaFormateado);
-    console.log(`📅 Hoy es ${diaFormateado}. Asignaturas filtradas:`, this.asignaturas);
   }
 
   irALista(asignatura: any) {
