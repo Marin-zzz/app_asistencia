@@ -1,18 +1,31 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Inicio Profesor</ion-title>
+    <ion-title class="ion-text-center">Inicio Profesor</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <div class="bienvenida-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>TIPO DE USUARIO: {{ tipo | uppercase }}</ion-card-subtitle><br>
-        <ion-card-title>Bienvenido, {{ nombre }}</ion-card-title>
-      </ion-card-header>
-    </ion-card>
+
+  <!-- Hora chilena centrada -->
+  <div class="ion-text-center">
+    <h3>{{ horaActual }}</h3>
   </div>
 
-  <ion-button expand="block" color="primary" (click)="logout()">Cerrar sesión</ion-button>
+  <h2>Hola, {{ nombre }}</h2>
+
+  <ion-list *ngIf="asignaturas.length > 0; else sinAsignaturas">
+    <ion-item *ngFor="let a of asignaturas" (click)="irALista(a)">
+      {{ a.nombre }} - {{ a.seccion }} ({{ a.horario }}, {{ a.dia }})
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinAsignaturas>
+    <p>No tienes asignaturas asignadas aún.</p>
+  </ng-template>
+
+  <!-- Botón cerrar sesión abajo -->
+  <div class="ion-text-center" style="margin-top: 50px;">
+    <ion-button color="danger" expand="block" (click)="logout()">Cerrar sesión</ion-button>
+  </div>
+
 </ion-content>

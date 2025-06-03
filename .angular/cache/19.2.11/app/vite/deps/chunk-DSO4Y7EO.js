@@ -1,4 +1,9 @@
 import {
+  MENU_BACK_BUTTON_PRIORITY,
+  OVERLAY_BACK_BUTTON_PRIORITY,
+  shouldUseCloseWatcher
+} from "./chunk-DLMSM3BV.js";
+import {
   LIFECYCLE_DID_ENTER,
   LIFECYCLE_DID_LEAVE,
   LIFECYCLE_WILL_ENTER,
@@ -11,20 +16,12 @@ import {
   setMode
 } from "./chunk-ME3PAPBC.js";
 import {
-  MENU_BACK_BUTTON_PRIORITY,
-  OVERLAY_BACK_BUTTON_PRIORITY,
-  shouldUseCloseWatcher
-} from "./chunk-DLMSM3BV.js";
-import {
   addEventListener,
   componentOnReady,
   focusVisibleElement,
   getElementRoot,
   removeEventListener
 } from "./chunk-L6BHBXTE.js";
-import {
-  BACKDROP_NO_SCROLL
-} from "./chunk-6HCD6MJG.js";
 import {
   config,
   configFromSession,
@@ -37,6 +34,9 @@ import {
   doc
 } from "./chunk-CJ5MJUPJ.js";
 import {
+  BACKDROP_NO_SCROLL
+} from "./chunk-6HCD6MJG.js";
+import {
   ActivatedRoute,
   ChildrenOutletContexts,
   NavigationStart,
@@ -44,15 +44,15 @@ import {
   Router,
   RouterLink,
   UrlSerializer
-} from "./chunk-X5RJVFN7.js";
+} from "./chunk-BCEYP6CU.js";
 import {
   NgControl
-} from "./chunk-6X62GDGJ.js";
+} from "./chunk-PHVSKCUC.js";
 import {
   DOCUMENT,
   Location,
   LocationStrategy
-} from "./chunk-EIYD3DCB.js";
+} from "./chunk-YMPN4VIC.js";
 import {
   ApplicationRef,
   Attribute,
@@ -98,7 +98,7 @@ import {
   ɵɵloadQuery,
   ɵɵqueryRefresh,
   ɵɵviewQuery
-} from "./chunk-64O2DG23.js";
+} from "./chunk-FYCMBAP2.js";
 import {
   __decorate
 } from "./chunk-N25OJVE5.js";
@@ -4131,4 +4131,4 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 */
-//# sourceMappingURL=chunk-XMPXDSXK.js.map
+//# sourceMappingURL=chunk-DSO4Y7EO.js.map

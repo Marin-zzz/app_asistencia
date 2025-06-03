@@ -70,6 +70,7 @@ async login(correo: string, contrasena: string) {
   localStorage.setItem('rut', docSnap.id);
   localStorage.setItem('nombre', data.nombre);
   localStorage.setItem('tipo', data.tipo);
+  localStorage.setItem('correo', data.correo);
 
   console.log('Redirigiendo según tipo:', data.tipo);
 
@@ -94,3 +95,4 @@ async login(correo: string, contrasena: string) {
     this.router.navigate(['/login']);
   }
 }
+

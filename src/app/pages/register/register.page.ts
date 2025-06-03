@@ -32,7 +32,7 @@ export class RegisterPage {
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', Validators.required],
       tipo: ['alumno', Validators.required],
-      nombre: ['', Validators.required] // por defecto "alumno"
+      nombre: ['', Validators.required] 
     });
   }
 

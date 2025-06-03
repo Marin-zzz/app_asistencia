@@ -26,5 +26,9 @@ export const routes: Routes = [
   {
     path: 'alumno-home',
     loadComponent: () => import('./pages/home-alumno/home-alumno.page').then(m => m.HomeAlumnoPage)
+  },  {
+    path: 'lista-alumnos',
+    loadComponent: () => import('./pages/lista-alumnos/lista-alumnos.page').then( m => m.ListaAlumnosPage)
   },
+
 ];

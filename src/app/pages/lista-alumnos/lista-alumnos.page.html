@@ -1,0 +1,30 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volverHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Lista de Alumnos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="!cargando">
+    <ion-item *ngFor="let alumno of alumnos; let i = index">
+      <ion-label>{{ alumno.nombre }}</ion-label>
+      <ion-select [(ngModel)]="alumno.estado" (ionChange)="cambiarEstado(i, alumno.estado)">
+        <ion-select-option value="presente">Presente</ion-select-option>
+        <ion-select-option value="ausente">Ausente</ion-select-option>
+        <ion-select-option value="justificado">Justificado</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="full" (click)="guardarAsistencia()" *ngIf="!cargando">
+    Guardar asistencia
+  </ion-button>
+</ion-content>
