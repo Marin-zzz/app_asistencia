@@ -1,0 +1,23 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Usuarios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+
+<ion-content class="ion-padding">
+
+  <ion-button expand="block" (click)="crearUsuario()">
+    Crear Usuario
+  </ion-button>
+
+  <ion-button expand="block" (click)="listarUsuarios()">
+    Listar Usuarios
+  </ion-button>
+
+</ion-content>
