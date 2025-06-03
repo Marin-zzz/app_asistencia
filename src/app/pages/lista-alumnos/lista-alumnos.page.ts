@@ -64,7 +64,6 @@ export class ListaAlumnosPage implements OnInit {
       this.asistenciaDocId = asistenciaDoc.id;
       this.alumnos = asistenciaDoc.data()['alumnos'];
 
-      // 🔄 Revisar si hay alumnos nuevos que no estén en la asistencia ya registrada
       for (const rut of this.asignatura.alumnos) {
         const yaExiste = this.alumnos.some((a) => a.rut === rut);
         if (!yaExiste) {
@@ -80,7 +79,6 @@ export class ListaAlumnosPage implements OnInit {
         }
       }
     } else {
-      // 🔄 Asistencia nueva: cargar todos los alumnos
       const lista: any[] = [];
       for (const rut of this.asignatura.alumnos) {
         const alumnoDoc = await getDoc(doc(this.firestore, 'usuarios', rut));
@@ -132,6 +130,10 @@ export class ListaAlumnosPage implements OnInit {
         hour12: false
       });
 
+      const ref = collection(this.firestore, 'asistencias');
+      const snap = await getDocs(ref);
+      const nuevoId = `registro_asistencia${snap.size + 1}`;
+
       const asistencia = {
         fechaCreacion: fechaHoraChile,
         asignaturaId: this.asignaturaId,
@@ -141,8 +143,9 @@ export class ListaAlumnosPage implements OnInit {
         alumnos: this.alumnos
       };
 
-      const docRef = await addDoc(collection(this.firestore, 'asistencias'), asistencia);
-      this.asistenciaDocId = docRef.id;
+      await setDoc(doc(this.firestore, 'asistencias', nuevoId), asistencia);
+      this.asistenciaDocId = nuevoId;
+
       await this.mostrarAlerta('Éxito', 'Asistencia guardada correctamente');
     } else {
       await this.mostrarAlerta('Éxito', 'Cambios guardados correctamente');
