@@ -44,7 +44,7 @@ export class AdminListarUsuariosPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await deleteDoc(doc(this.firestore, 'usuarios', id));
-            this.cargarUsuarios(); // recarga la lista
+            this.cargarUsuarios();
           }
         }
       ]
