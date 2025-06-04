@@ -16,8 +16,7 @@ import {
   getDocs,
   query,
   where,
-  updateDoc,
-  addDoc
+  updateDoc
 } from '@angular/fire/firestore';
 
 addIcons({
@@ -42,6 +41,8 @@ export class ListaAlumnosPage implements OnInit {
   cargando: boolean = true;
   asistenciaDocId: string | null = null;
 
+  profesorCorreo: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private firestore: Firestore,
@@ -54,6 +55,9 @@ export class ListaAlumnosPage implements OnInit {
 
     const asigDoc = await getDoc(doc(this.firestore, 'asignaturas', this.asignaturaId));
     this.asignatura = asigDoc.data();
+
+    const correoGuardado = localStorage.getItem('correo');
+    this.profesorCorreo = correoGuardado || 'profesor@desconocido.cl';
 
     const ref = collection(this.firestore, 'asistencias');
     const q = query(ref, where('asignaturaId', '==', this.asignaturaId));
@@ -106,40 +110,28 @@ export class ListaAlumnosPage implements OnInit {
     await alert.present();
   }
 
-  async cambiarEstado(index: number, nuevo: string) {
+  cambiarEstado(index: number, nuevo: string) {
     this.alumnos[index].estado = nuevo;
-
-    if (this.asistenciaDocId) {
-      const fechaHoraChile = new Date().toLocaleString('es-CL', {
-        timeZone: 'America/Santiago',
-        hour12: false
-      });
-
-      const asistenciaRef = doc(this.firestore, 'asistencias', this.asistenciaDocId);
-      await updateDoc(asistenciaRef, {
-        alumnos: this.alumnos,
-        fechaActualizacion: fechaHoraChile
-      });
-    }
   }
 
   async guardarAsistencia() {
-    if (!this.asistenciaDocId) {
-      const fechaHoraChile = new Date().toLocaleString('es-CL', {
-        timeZone: 'America/Santiago',
-        hour12: false
-      });
+    const fechaHoraChile = new Date().toLocaleString('es-CL', {
+      timeZone: 'America/Santiago',
+      hour12: false
+    });
 
+    if (!this.asistenciaDocId) {
       const ref = collection(this.firestore, 'asistencias');
       const snap = await getDocs(ref);
       const nuevoId = `registro_asistencia${snap.size + 1}`;
 
       const asistencia = {
         fechaCreacion: fechaHoraChile,
+        fechaActualizacion: fechaHoraChile,
         asignaturaId: this.asignaturaId,
         nombre: this.asignatura.nombre,
         seccion: this.asignatura.seccion,
-        profesor: this.asignatura.profesores[0],
+        profesor: this.profesorCorreo,
         alumnos: this.alumnos
       };
 
@@ -148,6 +140,14 @@ export class ListaAlumnosPage implements OnInit {
 
       await this.mostrarAlerta('Éxito', 'Asistencia guardada correctamente');
     } else {
+      // Actualizar existente
+      const asistenciaRef = doc(this.firestore, 'asistencias', this.asistenciaDocId);
+      await updateDoc(asistenciaRef, {
+        alumnos: this.alumnos,
+        fechaActualizacion: fechaHoraChile,
+        profesorActualizacion: this.profesorCorreo 
+      });
+
       await this.mostrarAlerta('Éxito', 'Cambios guardados correctamente');
     }
   }

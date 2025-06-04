@@ -84,4 +84,8 @@ export class HomeAdminPage implements OnInit {
   irAAsignaturas() {
     this.router.navigate(['/admin-asignaturas']);
   }
+
+  irARegistroAsignaturas() {
+    this.router.navigate(['/']);
+  }  
 }
