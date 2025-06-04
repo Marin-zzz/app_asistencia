@@ -1,0 +1,52 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Crear asignaturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="crearAsignatura()">
+
+    <ion-item>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input [(ngModel)]="nombre" name="nombre" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Día</ion-label>
+      <ion-input [(ngModel)]="dia" name="dia" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Horario</ion-label>
+      <ion-input [(ngModel)]="horario" name="horario" required></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Alumnos</ion-label>
+      <ion-select multiple="true" [(ngModel)]="alumnosSeleccionados" name="alumnosSeleccionados" okText="OK" cancelText="Cancelar" placeholder="Selecciona alumnos">
+        <ion-select-option *ngFor="let alumno of alumnosDisponibles" [value]="alumno.rut">
+          {{ alumno.nombre }} ({{ alumno.rut }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label>Profesores</ion-label>
+      <ion-select multiple="true" [(ngModel)]="profesoresSeleccionados" name="profesoresSeleccionados" okText="OK" cancelText="Cancelar" placeholder="Selecciona profesores">
+        <ion-select-option *ngFor="let prof of profesoresDisponibles" [value]="prof.correo">
+          {{ prof.nombre }} ({{ prof.correo }})
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-button expand="block" type="submit" class="ion-margin-top">Crear Asignatura</ion-button>
+    <ion-button expand="block" color="medium" (click)="cancelar()">Cancelar</ion-button>
+
+  </form>
+</ion-content>

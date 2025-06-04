@@ -80,4 +80,8 @@ export class HomeAdminPage implements OnInit {
   irAUsuarios() {
     this.router.navigate(['/admin-usuarios']);
   }
+
+  irAAsignaturas() {
+    this.router.navigate(['/admin-asignaturas']);
+  }
 }
