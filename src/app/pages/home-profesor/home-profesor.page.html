@@ -8,8 +8,19 @@
 
   <!-- Hora chilena centrada -->
   <div class="ion-text-center">
+    <h3>{{ fechaActual }}</h3>
     <h3>{{ horaActual }}</h3>
   </div>
+
+  <!-- Selector de día para filtrar asignaturas -->
+  <ion-item>
+    <ion-label>Día</ion-label>
+    <ion-select [(ngModel)]="diaSeleccionado" (ionChange)="cambioDia()" placeholder="Selecciona un día">
+      <ion-select-option *ngFor="let d of diasSemana" [value]="d.valor">
+        {{ d.texto }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <h2>Hola, {{ nombre }}</h2>
 

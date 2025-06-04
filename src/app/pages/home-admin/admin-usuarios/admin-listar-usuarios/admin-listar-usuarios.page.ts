@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { IonicModule, AlertController } from '@ionic/angular';
-import { Firestore, collection, getDocs, doc, deleteDoc } from '@angular/fire/firestore';
+import { Firestore, collection, getDocs, doc, deleteDoc, query, where, updateDoc, arrayRemove } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
 
 @Component({
@@ -44,11 +44,26 @@ export class AdminListarUsuariosPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await deleteDoc(doc(this.firestore, 'usuarios', id));
+
+            const asignaturasRef = collection(this.firestore, 'asignaturas');
+            const q = query(asignaturasRef, where('alumnos', 'array-contains', id));
+            const snapshot = await getDocs(q);
+
+            const promesas = snapshot.docs.map(async (asigDoc) => {
+              const asigRef = doc(this.firestore, 'asignaturas', asigDoc.id);
+              await updateDoc(asigRef, {
+                alumnos: arrayRemove(id)
+              });
+            });
+
+            await Promise.all(promesas);
+
             this.cargarUsuarios();
           }
         }
       ]
     });
+
     await alert.present();
   }
 

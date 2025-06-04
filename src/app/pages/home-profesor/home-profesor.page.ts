@@ -22,6 +22,20 @@ export class HomeProfesorPage implements OnInit {
   debugInfo: any = {};
   showDebugInfo: boolean = false;
   horaActual: string = '';
+  fechaActual: string = '';
+
+  // Nuevo: día seleccionado, por defecto es el día actual
+  diaSeleccionado: string = '';
+
+  diasSemana = [
+    { valor: 'Lunes', texto: 'Lunes' },
+    { valor: 'Martes', texto: 'Martes' },
+    { valor: 'Miércoles', texto: 'Miércoles' },
+    { valor: 'Jueves', texto: 'Jueves' },
+    { valor: 'Viernes', texto: 'Viernes' },
+    { valor: 'Sábado', texto: 'Sábado' },
+    { valor: 'Domingo', texto: 'Domingo' }
+  ];
 
   constructor(
     private authService: AuthService,
@@ -29,7 +43,7 @@ export class HomeProfesorPage implements OnInit {
     private router: Router
   ) {}
 
-  async ngOnInit() {
+  ngOnInit() {
     this.nombre = localStorage.getItem('nombre') || '';
     this.tipo = localStorage.getItem('tipo') || '';
     this.userEmail = localStorage.getItem('correo') || 'No encontrado';
@@ -45,10 +59,20 @@ export class HomeProfesorPage implements OnInit {
       }
     };
 
-    await this.cargarAsignaturas();
-    this.loading = false;
+    // Setear diaSeleccionado como el día actual
+    const diaActual = new Date().toLocaleDateString('es-CL', {
+      weekday: 'long',
+      timeZone: 'America/Santiago'
+    });
+    this.diaSeleccionado = diaActual.charAt(0).toUpperCase() + diaActual.slice(1);
 
     this.actualizarHora();
+  }
+
+  async ionViewWillEnter() {
+    this.loading = true;
+    await this.cargarAsignaturas();
+    this.loading = false;
   }
 
   logout() {
@@ -59,6 +83,13 @@ export class HomeProfesorPage implements OnInit {
     this.showDebugInfo = !this.showDebugInfo;
   }
 
+  // Al cambiar el día seleccionado recargamos las asignaturas
+  async cambioDia() {
+    this.loading = true;
+    await this.cargarAsignaturas();
+    this.loading = false;
+  }
+
   async cargarAsignaturas() {
     const correo = localStorage.getItem('correo');
 
@@ -66,27 +97,30 @@ export class HomeProfesorPage implements OnInit {
     const q = query(ref, where('profesores', 'array-contains', correo));
     const snap = await getDocs(q);
 
-    const diaActual = new Date().toLocaleDateString('es-CL', {
-      weekday: 'long',
-      timeZone: 'America/Santiago'
-    });
-    const diaFormateado = diaActual.charAt(0).toUpperCase() + diaActual.slice(1);
-
     const todas = snap.docs.map(doc => ({
       id: doc.id,
       ...(doc.data() as any)
     }));
 
-    this.asignaturas = todas.filter(a => a.dia === diaFormateado);
+    this.asignaturas = todas.filter(a => a.dia === this.diaSeleccionado);
   }
 
   irALista(asignatura: any) {
     this.router.navigate(['/lista-alumnos'], { queryParams: { id: asignatura.id } });
   }
 
+
   actualizarHora() {
     const actualizar = () => {
-      this.horaActual = new Date().toLocaleTimeString('es-CL', {
+      const ahora = new Date();
+      this.fechaActual = ahora.toLocaleDateString('es-CL', {
+        weekday: 'long',
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+        timeZone: 'America/Santiago'
+      });
+      this.horaActual = ahora.toLocaleTimeString('es-CL', {
         timeZone: 'America/Santiago',
         hour12: false
       });

@@ -54,4 +54,8 @@ export class AdminEditarUsuarioPage implements OnInit {
 
     await alert.present();
   }
+
+  volver() {
+    this.router.navigate(['/admin-listar-usuarios']);
+  }
 }

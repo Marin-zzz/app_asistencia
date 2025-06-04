@@ -86,6 +86,6 @@ export class HomeAdminPage implements OnInit {
   }
 
   irARegistroAsignaturas() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/admin-registro-asistencia']);
   }  
 }

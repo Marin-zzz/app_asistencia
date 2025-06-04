@@ -62,7 +62,15 @@ export const routes: Routes = [
   {
     path: 'editar-asignatura/:id',
     loadComponent: () => import('./pages/home-admin/admin-asignaturas/editar-asignatura/editar-asignatura.page').then( m => m.EditarAsignaturaPage)
+  },  {
+    path: 'admin-registro-asistencia',
+    loadComponent: () => import('./pages/home-admin/admin-registro-asistencia/admin-registro-asistencia.page').then( m => m.AdminRegistroAsistenciaPage)
   },
+  {
+    path: 'asignatura-detalle-admin',
+    loadComponent: () => import('./pages/home-admin/admin-registro-asistencia/asignatura-detalle-admin/asignatura-detalle-admin.page').then( m => m.AsignaturaDetalleAdminPage)
+  },
+
 
 
 ];
