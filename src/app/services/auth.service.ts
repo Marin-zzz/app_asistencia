@@ -92,6 +92,7 @@ async login(correo: string, contrasena: string) {
 
 
   logout() {
+    localStorage.clear();
     this.router.navigate(['/login']);
   }
 }
