@@ -48,7 +48,6 @@ export class HomeAlumnoPage implements OnInit {
     this.tipo = localStorage.getItem('tipo') || '';
     this.rut = localStorage.getItem('rut') || '';
 
-    // Setear diaSeleccionado como el día actual
     const diaActual = new Date().toLocaleDateString('es-CL', {
       weekday: 'long',
       timeZone: 'America/Santiago'
