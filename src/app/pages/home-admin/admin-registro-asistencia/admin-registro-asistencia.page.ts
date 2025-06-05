@@ -24,7 +24,7 @@ export class AdminRegistroAsistenciaPage implements OnInit {
       return {
         id: doc.id,
         ...data,
-        nombreCompleto: `${data['nombre']}_${data['seccion']}` // Aquí se concatena nombre y sección
+        nombreCompleto: `${data['nombre']}_${data['seccion']}`
       };
     });
   }

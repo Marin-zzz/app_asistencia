@@ -24,6 +24,18 @@ export class HomeAlumnoPage implements OnInit {
   asignaturaSeleccionada: any;
   fechaActual: string = '';
   horaActual: string = '';
+  diaSeleccionado: string = '';
+  loading: boolean = true;
+
+  diasSemana = [
+    { valor: 'Lunes', texto: 'Lunes' },
+    { valor: 'Martes', texto: 'Martes' },
+    { valor: 'Miércoles', texto: 'Miércoles' },
+    { valor: 'Jueves', texto: 'Jueves' },
+    { valor: 'Viernes', texto: 'Viernes' },
+    { valor: 'Sábado', texto: 'Sábado' },
+    { valor: 'Domingo', texto: 'Domingo' }
+  ];
 
   constructor(
     private authService: AuthService,
@@ -35,17 +47,25 @@ export class HomeAlumnoPage implements OnInit {
     this.nombre = localStorage.getItem('nombre') || '';
     this.tipo = localStorage.getItem('tipo') || '';
     this.rut = localStorage.getItem('rut') || '';
-    this.cargarAsignaturas();
-    this.actualizarHora();
-  }
 
-  async cargarAsignaturas() {
+    // Setear diaSeleccionado como el día actual
     const diaActual = new Date().toLocaleDateString('es-CL', {
       weekday: 'long',
       timeZone: 'America/Santiago'
     });
-    const diaFormateado = diaActual.charAt(0).toUpperCase() + diaActual.slice(1);
+    this.diaSeleccionado = diaActual.charAt(0).toUpperCase() + diaActual.slice(1);
 
+    this.cargarAsignaturas();
+    this.actualizarHora();
+  }
+
+  async cambioDia() {
+    this.loading = true;
+    await this.cargarAsignaturas();
+    this.loading = false;
+  }
+
+  async cargarAsignaturas() {
     const ref = collection(this.firestore, 'asignaturas');
     const q = query(ref, where('alumnos', 'array-contains', this.rut));
     const snap = await getDocs(q);
@@ -55,7 +75,7 @@ export class HomeAlumnoPage implements OnInit {
         id: doc.id,
         ...(doc.data() as any)
       }))
-      .filter(a => a.dia === diaFormateado);
+      .filter(a => a.dia === this.diaSeleccionado);
   }
 
   generarQR(asignatura: any) {

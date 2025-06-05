@@ -41,7 +41,6 @@ addIcons({
   ]
 })
 export class ListaAlumnosPage implements OnInit {
-  // Datos de la asignatura
   asignaturaId: string = '';
   asignatura: any;
   alumnos: any[] = [];
@@ -49,22 +48,19 @@ export class ListaAlumnosPage implements OnInit {
   asistenciaDocId: string | null = null;
   profesorCorreo: string = '';
   
-  // Control del escáner QR
   escaneando: boolean = false;
   dispositivos: MediaDeviceInfo[] = [];
   dispositivoSeleccionado: MediaDeviceInfo | undefined;
   scannerHabilitado: boolean = false;
   formatosPermitidos: BarcodeFormat[] = [BarcodeFormat.QR_CODE];
   
-  // Mensajes temporales
   mensajeExito: string | null = null;
   mostrarMensaje: boolean = false;
   timeoutMensaje: any;
   
-  // Control de spam de QR
   ultimoQRLeido: string | null = null;
   tiempoUltimoQR: number = 0;
-  readonly cooldownQR: number = 5000; // 5 segundos de cooldown
+  readonly cooldownQR: number = 5000;
 
   constructor(
     private route: ActivatedRoute,
@@ -80,12 +76,10 @@ export class ListaAlumnosPage implements OnInit {
   }
 
   async cargarDatosIniciales() {
-    // Cargar datos de la asignatura
     const asigDoc = await getDoc(doc(this.firestore, 'asignaturas', this.asignaturaId));
     this.asignatura = asigDoc.data();
     this.profesorCorreo = localStorage.getItem('correo') || 'profesor@desconocido.cl';
 
-    // Cargar asistencia existente
     const ref = collection(this.firestore, 'asistencias');
     const q = query(ref, where('asignaturaId', '==', this.asignaturaId));
     const snap = await getDocs(q);
@@ -109,7 +103,7 @@ export class ListaAlumnosPage implements OnInit {
         lista.push({
           rut,
           nombre: alumnoDoc.data()['nombre'],
-          estado: 'presente'
+          estado: 'ausente'
         });
       }
     }
@@ -130,38 +124,40 @@ export class ListaAlumnosPage implements OnInit {
   }
 
   async guardarAsistencia() {
-    try {
-      this.cargando = true;
-      const fechaHoraChile = new Date().toLocaleString('es-CL', {
-        timeZone: 'America/Santiago',
-        hour12: false
-      });
+    const fechaHoraChile = new Date().toLocaleString('es-CL', {
+      timeZone: 'America/Santiago',
+      hour12: false
+    });
 
-      const datosAsistencia = {
+    if (!this.asistenciaDocId) {
+      const ref = collection(this.firestore, 'asistencias');
+      const snap = await getDocs(ref);
+      const nuevoId = `registro_asistencia${snap.size + 1}`;
+
+      const asistencia = {
+        fechaCreacion: fechaHoraChile,
         fechaActualizacion: fechaHoraChile,
-        alumnos: this.alumnos,
-        profesorActualizacion: this.profesorCorreo,
+        asignaturaId: this.asignaturaId,
         nombre: this.asignatura.nombre,
         seccion: this.asignatura.seccion,
-        asignaturaId: this.asignaturaId
+        profesor: this.profesorCorreo,
+        alumnos: this.alumnos
       };
 
-      if (!this.asistenciaDocId) {
-        this.asistenciaDocId = `asistencia_${Date.now()}`;
-        await setDoc(doc(this.firestore, 'asistencias', this.asistenciaDocId), {
-          ...datosAsistencia,
-          fechaCreacion: fechaHoraChile
-        });
-      } else {
-        await updateDoc(doc(this.firestore, 'asistencias', this.asistenciaDocId), datosAsistencia);
-      }
+      await setDoc(doc(this.firestore, 'asistencias', nuevoId), asistencia);
+      this.asistenciaDocId = nuevoId;
 
       await this.mostrarAlerta('Éxito', 'Asistencia guardada correctamente');
-    } catch (error) {
-      console.error('Error al guardar asistencia:', error);
-      await this.mostrarAlerta('Error', 'No se pudo guardar la asistencia');
-    } finally {
-      this.cargando = false;
+    } else {
+      // Actualizar existente
+      const asistenciaRef = doc(this.firestore, 'asistencias', this.asistenciaDocId);
+      await updateDoc(asistenciaRef, {
+        alumnos: this.alumnos,
+        fechaActualizacion: fechaHoraChile,
+        profesorActualizacion: this.profesorCorreo 
+      });
+
+      await this.mostrarAlerta('Éxito', 'Cambios guardados correctamente');
     }
   }
 
