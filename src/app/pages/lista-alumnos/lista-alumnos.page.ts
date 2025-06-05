@@ -69,10 +69,22 @@ export class ListaAlumnosPage implements OnInit {
     private alertCtrl: AlertController
   ) {}
 
+
   async ngOnInit() {
-    this.asignaturaId = this.route.snapshot.queryParamMap.get('id') || '';
-    await this.cargarDatosIniciales();
-    this.cargando = false;
+    this.limpiarDatos();
+    this.route.queryParamMap.subscribe(async params => {
+      this.asignaturaId = params.get('id') || '';
+      await this.cargarDatosIniciales();
+      this.cargando = false;
+    });
+}
+
+  limpiarDatos() {
+    this.asignaturaId = '';
+    this.asignatura = null;
+    this.alumnos = [];
+    this.asistenciaDocId = null;
+    this.cargando = true;
   }
 
   async cargarDatosIniciales() {

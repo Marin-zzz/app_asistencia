@@ -5,7 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Lista de Alumnos - {{asignatura?.nombre}}</ion-title>
+    <ion-title>Lista de Alumnos</ion-title>
     <ion-buttons slot="end">
       <ion-button (click)="escaneando ? detenerEscaneo() : iniciarEscaneo()" [color]="escaneando ? 'danger' : 'primary'">
         <ion-icon slot="icon-only" [name]="escaneando ? 'close' : 'qr-code'"></ion-icon>
@@ -13,6 +13,8 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
+
+  <h1 style="margin-left: 15px;">{{asignatura?.nombre}} - {{ asignatura?.seccion}}</h1>
 
 <ion-content class="ion-padding">
   <div *ngIf="escaneando" class="scanner-container">

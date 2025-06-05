@@ -2,11 +2,11 @@ import {
   isRTL
 } from "./chunk-EUT5B6DW.js";
 import {
-  clamp
-} from "./chunk-L6BHBXTE.js";
-import {
   createGesture
 } from "./chunk-6HCD6MJG.js";
+import {
+  clamp
+} from "./chunk-L6BHBXTE.js";
 import "./chunk-ZWBDDU4U.js";
 import "./chunk-QOASMIZU.js";
 
@@ -80,4 +80,4 @@ export {
    * (C) Ionic http://ionicframework.com - MIT License
    *)
 */
-//# sourceMappingURL=swipe-back-UTXEUGJN.js.map
+//# sourceMappingURL=swipe-back-6CNE657J.js.map
