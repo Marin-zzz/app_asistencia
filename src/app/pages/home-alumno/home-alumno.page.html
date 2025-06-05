@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content class="ion-padding">
+  <div class="ion-text-center">
+    <h3>{{ fechaActual }}</h3>
+    <h3>{{ horaActual }}</h3>
+  </div>
+
   <div class="bienvenida-container">
     <ion-card>
       <ion-card-header>
@@ -14,5 +19,29 @@
     </ion-card>
   </div>
 
-  <ion-button expand="block" color="primary" (click)="logout()">Cerrar sesión</ion-button>
+  <h2>Tus asignaturas de hoy</h2>
+
+  <ion-list *ngIf="asignaturas.length > 0; else sinAsignaturas">
+    <ion-item *ngFor="let a of asignaturas" (click)="generarQR(a)">
+      <ion-label>{{ a.nombre }} - {{ a.seccion }}</ion-label>
+      <ion-label slot="end">{{ a.horario }}</ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #sinAsignaturas>
+    <ion-card>
+      <ion-card-content>
+        No tienes asignaturas programadas para hoy.
+      </ion-card-content>
+    </ion-card>
+  </ng-template>
+
+  <div *ngIf="mostrarQR" class="ion-text-center ion-padding">
+    <h3>{{ asignaturaSeleccionada?.nombre }} - {{ asignaturaSeleccionada?.seccion }}</h3>
+    <qrcode [qrdata]="qrData" [width]="256" [errorCorrectionLevel]="'M'"></qrcode>
+    <p>Muestra este código al profesor para registrar tu asistencia</p>
+    <ion-button expand="block" (click)="mostrarQR = false">Cerrar</ion-button>
+  </div>
+
+  <ion-button expand="block" color="danger" (click)="logout()">Cerrar sesión</ion-button>
 </ion-content>

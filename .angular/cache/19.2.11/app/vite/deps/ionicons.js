@@ -1,8 +1,8 @@
 import {
   addIcons,
   setAssetPath
-} from "./chunk-DZJKMYTR.js";
-import "./chunk-UQIXM5CJ.js";
+} from "./chunk-BDUFJM74.js";
+import "./chunk-QOASMIZU.js";
 export {
   addIcons,
   setAssetPath

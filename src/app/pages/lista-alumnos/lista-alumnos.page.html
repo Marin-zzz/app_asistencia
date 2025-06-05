@@ -5,23 +5,56 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Lista de Alumnos</ion-title>
+    <ion-title>Lista de Alumnos - {{asignatura?.nombre}}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="escaneando ? detenerEscaneo() : iniciarEscaneo()" [color]="escaneando ? 'danger' : 'primary'">
+        <ion-icon slot="icon-only" [name]="escaneando ? 'close' : 'qr-code'"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list *ngIf="!cargando">
-    <ion-item *ngFor="let alumno of alumnos; let i = index">
-      <ion-label>{{ alumno.nombre }}</ion-label>
-      <ion-select [(ngModel)]="alumno.estado" (ionChange)="cambiarEstado(i, alumno.estado)">
-        <ion-select-option value="presente">Presente</ion-select-option>
-        <ion-select-option value="ausente">Ausente</ion-select-option>
-        <ion-select-option value="justificado">Justificado</ion-select-option>
-      </ion-select>
-    </ion-item>
-  </ion-list>
+  <div *ngIf="escaneando" class="scanner-container">
+    <div *ngIf="mostrarMensaje" class="mensaje-flotante" [class.error]="mensajeExito?.includes('no válido')">
+      {{mensajeExito}}
+    </div>
+    
+    <zxing-scanner 
+      [device]="dispositivoSeleccionado"
+      [enable]="scannerHabilitado"
+      (scanSuccess)="manejarScan($event)"
+      [formats]="formatosPermitidos"
+      [tryHarder]="true">
+    </zxing-scanner>
+    
+    <ion-button expand="block" color="medium" (click)="detenerEscaneo()" class="boton-cerrar">
+      <ion-icon slot="start" name="close"></ion-icon>
+      Cerrar escáner
+    </ion-button>
+  </div>
 
-  <ion-button expand="full" (click)="guardarAsistencia()" *ngIf="!cargando">
-    Guardar asistencia
-  </ion-button>
+  <div *ngIf="!escaneando">
+    <ion-list *ngIf="!cargando; else loading">
+      <ion-item *ngFor="let alumno of alumnos; let i = index" class="item-alumno">
+        <ion-label>{{alumno.nombre}}</ion-label>
+        <ion-select [(ngModel)]="alumno.estado" (ionChange)="cambiarEstado(i, alumno.estado)" interface="popover">
+          <ion-select-option value="presente">Presente</ion-select-option>
+          <ion-select-option value="ausente">Ausente</ion-select-option>
+          <ion-select-option value="justificado">Justificado</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" (click)="guardarAsistencia()" *ngIf="!cargando" class="boton-guardar">
+      Guardar asistencia
+    </ion-button>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando lista de alumnos...</p>
+    </div>
+  </ng-template>
 </ion-content>

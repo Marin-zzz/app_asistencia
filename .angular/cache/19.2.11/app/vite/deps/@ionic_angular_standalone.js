@@ -1,18 +1,4 @@
 import {
-  ION_CONTENT_CLASS_SELECTOR,
-  ION_CONTENT_ELEMENT_SELECTOR,
-  disableContentScrollY,
-  findClosestIonContent,
-  findIonContent,
-  getScrollElement,
-  isIonContent,
-  printIonContentErrorMsg,
-  resetContentScrollY
-} from "./chunk-LSJ7ZUG5.js";
-import {
-  startFocusVisible
-} from "./chunk-7Q5HCUSL.js";
-import {
   isRTL
 } from "./chunk-EUT5B6DW.js";
 import {
@@ -23,6 +9,20 @@ import {
   KeyboardResize,
   getCapacitor
 } from "./chunk-ZXOPHZFH.js";
+import {
+  ION_CONTENT_CLASS_SELECTOR,
+  ION_CONTENT_ELEMENT_SELECTOR,
+  disableContentScrollY,
+  findClosestIonContent,
+  findIonContent,
+  getScrollElement,
+  isIonContent,
+  printIonContentErrorMsg,
+  resetContentScrollY
+} from "./chunk-OXQAYFGH.js";
+import {
+  startFocusVisible
+} from "./chunk-7Q5HCUSL.js";
 import {
   AngularDelegate,
   BACKDROP,
@@ -86,16 +86,13 @@ import {
   setIonicClasses,
   setOverlayId,
   toastController
-} from "./chunk-DSO4Y7EO.js";
-import {
-  shouldUseCloseWatcher
-} from "./chunk-DLMSM3BV.js";
+} from "./chunk-KQ32VQJK.js";
 import {
   iosTransitionAnimation
-} from "./chunk-X3IQH7AT.js";
+} from "./chunk-BJJLKJTA.js";
 import {
   mdTransitionAnimation
-} from "./chunk-4XH32NJ4.js";
+} from "./chunk-KQILTTYP.js";
 import {
   LIFECYCLE_DID_LEAVE,
   LIFECYCLE_WILL_LEAVE,
@@ -106,7 +103,7 @@ import {
   setPageHidden,
   transition,
   waitForMount
-} from "./chunk-MBAO76ZR.js";
+} from "./chunk-U2JIX3HU.js";
 import {
   Build,
   H,
@@ -118,7 +115,7 @@ import {
   proxyCustomElement,
   readTask,
   writeTask
-} from "./chunk-ME3PAPBC.js";
+} from "./chunk-ZRYIKZ5N.js";
 import {
   addEventListener,
   assert,
@@ -140,33 +137,36 @@ import {
   transitionEndAsync
 } from "./chunk-L6BHBXTE.js";
 import {
-  config,
-  printIonError,
-  printIonWarning
-} from "./chunk-ZWBDDU4U.js";
+  GESTURE_CONTROLLER,
+  createGesture
+} from "./chunk-6HCD6MJG.js";
+import {
+  shouldUseCloseWatcher
+} from "./chunk-TRR2F2DP.js";
 import {
   doc,
   win
 } from "./chunk-CJ5MJUPJ.js";
 import {
-  GESTURE_CONTROLLER,
-  createGesture
-} from "./chunk-6HCD6MJG.js";
+  config,
+  printIonError,
+  printIonWarning
+} from "./chunk-ZWBDDU4U.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-75U2VYFM.js";
 import {
   ActivatedRoute,
   Router
-} from "./chunk-BCEYP6CU.js";
-import "./chunk-CZUYJO4M.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-PHVSKCUC.js";
+} from "./chunk-5X2GRJXY.js";
+import "./chunk-QR5TKIJ7.js";
 import {
   CommonModule,
   DOCUMENT,
   Location,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-YMPN4VIC.js";
+} from "./chunk-CM33XZZB.js";
 import {
   APP_INITIALIZER,
   Attribute,
@@ -219,7 +219,7 @@ import {
   ɵɵrestoreView,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-FYCMBAP2.js";
+} from "./chunk-65SCWMRT.js";
 import {
   __decorate
 } from "./chunk-N25OJVE5.js";
@@ -228,7 +228,7 @@ import {
   __publicField,
   __spreadProps,
   __spreadValues
-} from "./chunk-UQIXM5CJ.js";
+} from "./chunk-QOASMIZU.js";
 
 // node_modules/@ionic/core/components/index7.js
 var arrowBackSharp = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' class='ionicon' viewBox='0 0 512 512'><path stroke-linecap='square' stroke-miterlimit='10' stroke-width='48' d='M244 400L100 256l144-144M120 256h292' class='ionicon-fill-none'/></svg>";
@@ -915,7 +915,7 @@ var RouterOutlet = proxyCustomElement(class RouterOutlet2 extends H {
           this.swipeHandler.onStart();
         }
       };
-      this.gesture = (yield import("./swipe-back-EHC2OIWO.js")).createSwipeBackGesture(this.el, () => !this.gestureOrAnimationInProgress && !!this.swipeHandler && this.swipeHandler.canStart(), () => onStart(), (step) => {
+      this.gesture = (yield import("./swipe-back-UTXEUGJN.js")).createSwipeBackGesture(this.el, () => !this.gestureOrAnimationInProgress && !!this.swipeHandler && this.swipeHandler.canStart(), () => onStart(), (step) => {
         var _a91;
         return (_a91 = this.ani) === null || _a91 === void 0 ? void 0 : _a91.progressStep(step);
       }, (shouldComplete, step, dur) => {
@@ -5668,16 +5668,16 @@ var App = proxyCustomElement(class App2 extends H {
       rIC(() => __async(this, null, function* () {
         const isHybrid = isPlatform(window, "hybrid");
         if (!config.getBoolean("_testing")) {
-          import("./index9-4X3KYTLM.js").then((module) => module.startTapClick(config));
+          import("./index9-FKGDJ5B6.js").then((module) => module.startTapClick(config));
         }
         if (config.getBoolean("statusTap", isHybrid)) {
-          import("./status-tap-JMYTXNCZ.js").then((module) => module.startStatusTap());
+          import("./status-tap-XQUH4LKS.js").then((module) => module.startStatusTap());
         }
         if (config.getBoolean("inputShims", needInputShims())) {
           const platform = isPlatform(window, "ios") ? "ios" : "android";
-          import("./input-shims-HECHX7NV.js").then((module) => module.startInputShims(config, platform));
+          import("./input-shims-3FPK23AI.js").then((module) => module.startInputShims(config, platform));
         }
-        const hardwareBackButtonModule = yield import("./hardware-back-button-F2TPIDFM.js");
+        const hardwareBackButtonModule = yield import("./hardware-back-button-F4I6AXL3.js");
         const supportsHardwareBackButtonEvents = isHybrid || shouldUseCloseWatcher();
         if (config.getBoolean("hardwareBackButton", supportsHardwareBackButtonEvents)) {
           hardwareBackButtonModule.startHardwareBackButton();
@@ -5688,9 +5688,9 @@ var App = proxyCustomElement(class App2 extends H {
           hardwareBackButtonModule.blockHardwareBackButton();
         }
         if (typeof window !== "undefined") {
-          import("./keyboard2-G3NVOEI4.js").then((module) => module.startKeyboardAssist(window));
+          import("./keyboard2-SRERNOBI.js").then((module) => module.startKeyboardAssist(window));
         }
-        import("./focus-visible-GFSZNISE.js").then((module) => this.focusVisible = module.startFocusVisible());
+        import("./focus-visible-27UBGAJL.js").then((module) => this.focusVisible = module.startFocusVisible());
       }));
     }
   }
@@ -11228,7 +11228,7 @@ var ItemSliding = proxyCustomElement(class ItemSliding2 extends H {
         yield this.updateOptions();
       }));
       yield this.updateOptions();
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el,
         gestureName: "item-swipe",
         gesturePriority: 100,
@@ -12269,7 +12269,7 @@ var Menu = proxyCustomElement(class Menu2 extends H {
       this.sideChanged();
       menuController._register(this);
       this.menuChanged();
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: document,
         gestureName: "menu-swipe",
         gesturePriority: 30,
@@ -14041,7 +14041,7 @@ var PickerColumnCmp = proxyCustomElement(class PickerColumnCmp2 extends H {
       }
       this.rotateFactor = pickerRotateFactor;
       this.scaleFactor = pickerScaleFactor;
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: this.el,
         gestureName: "picker-swipe",
         gesturePriority: 100,
@@ -15331,7 +15331,7 @@ var Refresher = proxyCustomElement(class Refresher2 extends H {
         });
       };
       this.scrollEl.addEventListener("scroll", this.scrollListenerCallback);
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: this.scrollEl,
         gestureName: "refresher",
         gesturePriority: 31,
@@ -15379,7 +15379,7 @@ var Refresher = proxyCustomElement(class Refresher2 extends H {
           refreshingCircle.style.setProperty("animation-delay", "-655ms");
         });
       }
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: this.scrollEl,
         gestureName: "refresher",
         gesturePriority: 31,
@@ -15492,7 +15492,7 @@ var Refresher = proxyCustomElement(class Refresher2 extends H {
         if (yield shouldUseNativeRefresher(this.el, getIonMode(this))) {
           this.setupNativeRefresher(contentEl);
         } else {
-          this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+          this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
             el: contentEl,
             gestureName: "refresher",
             gesturePriority: 31,
@@ -16021,7 +16021,7 @@ var ReorderGroup = proxyCustomElement(class ReorderGroup2 extends H {
       if (contentEl) {
         this.scrollEl = yield getScrollElement(contentEl);
       }
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: this.el,
         gestureName: "reorder",
         gesturePriority: 110,
@@ -19236,7 +19236,7 @@ var Nav = proxyCustomElement(class Nav2 extends H {
     return __async(this, null, function* () {
       this.didLoad = true;
       this.rootChanged();
-      this.gesture = (yield import("./swipe-back-EHC2OIWO.js")).createSwipeBackGesture(this.el, this.canStart.bind(this), this.onStart.bind(this), this.onMove.bind(this), this.onEnd.bind(this));
+      this.gesture = (yield import("./swipe-back-UTXEUGJN.js")).createSwipeBackGesture(this.el, this.canStart.bind(this), this.onStart.bind(this), this.onMove.bind(this), this.onEnd.bind(this));
       this.swipeGestureChanged();
     });
   }
@@ -23011,7 +23011,7 @@ var Range = proxyCustomElement(class Range2 extends H {
     this.setupGesture = () => __async(this, null, function* () {
       const rangeSlider = this.rangeSlider;
       if (rangeSlider) {
-        this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+        this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
           el: rangeSlider,
           gestureName: "range",
           gesturePriority: 100,
@@ -24329,7 +24329,7 @@ var Segment = proxyCustomElement(class Segment2 extends H {
       raf(() => {
         this.scrollActiveButtonIntoView(false);
       });
-      this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+      this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
         el: this.el,
         gestureName: "segment",
         gesturePriority: 100,
@@ -26387,7 +26387,7 @@ var Toggle = proxyCustomElement(class Toggle2 extends H {
         toggleTrack
       } = this;
       if (toggleTrack) {
-        this.gesture = (yield import("./index3-NRX4PONZ.js")).createGesture({
+        this.gesture = (yield import("./index3-ET5TDPB6.js")).createGesture({
           el: toggleTrack,
           gestureName: "toggle",
           gesturePriority: 100,
