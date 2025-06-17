@@ -1,0 +1,79 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Editar asignaturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-item>
+    <ion-label position="floating">Nombre</ion-label>
+    <ion-input [(ngModel)]="nombre"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Día</ion-label>
+    <ion-input [(ngModel)]="dia"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="floating">Horario</ion-label>
+    <ion-input [(ngModel)]="horario"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-label>Profesores</ion-label>
+    <ion-button fill="clear" (click)="mostrarListaProfesores = !mostrarListaProfesores" slot="end">
+      {{ profesoresPlaceholder }}
+    </ion-button>
+  </ion-item>
+
+  <div *ngIf="mostrarListaProfesores" class="lista-container">
+    <ion-list>
+      <ion-item *ngFor="let profe of listaProfesores" (click)="toggleProfesorSeleccionado(profe.correo)">
+        <ion-label>
+          {{ obtenerNombreProfesor(profe.correo) }} ({{ profe.correo }})
+        </ion-label>
+        <ion-checkbox
+          slot="end"
+          [checked]="profesoresSeleccionados[profe.correo] || false"
+          (click)="$event.stopPropagation()"
+        ></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="listaProfesores.length === 0">
+        <ion-label color="medium">No hay profesores disponibles</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-item>
+    <ion-label>Alumnos</ion-label>
+    <ion-button fill="clear" (click)="mostrarListaAlumnos = !mostrarListaAlumnos" slot="end">
+      {{ alumnosPlaceholder }}
+    </ion-button>
+  </ion-item>
+
+  <div *ngIf="mostrarListaAlumnos" class="lista-container">
+    <ion-list>
+      <ion-item *ngFor="let alumno of listaAlumnos" (click)="toggleAlumnoSeleccionado(alumno.rut)">
+        <ion-label>
+          {{ alumno.nombre }} ({{ alumno.rut }})
+        </ion-label>
+        <ion-checkbox
+          slot="end"
+          [checked]="alumnosSeleccionados[alumno.rut] || false"
+          (click)="$event.stopPropagation()"
+        ></ion-checkbox>
+      </ion-item>
+      <ion-item *ngIf="listaAlumnos.length === 0">
+        <ion-label color="medium">No hay alumnos disponibles</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+  <ion-button expand="block" (click)="guardarCambios()">Guardar Cambios</ion-button>
+</ion-content>

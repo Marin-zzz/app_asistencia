@@ -1,0 +1,68 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volverHome()">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Lista de Alumnos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="startNativeScan()"
+                  [color]="isScanning ? 'danger' : 'primary'"
+                  [disabled]="isScanning || cargando">
+        <ion-icon slot="icon-only" name="qr-code"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header> 
+
+  <h1 style="margin-left: 15px;">{{asignatura?.nombre}} - {{ asignatura?.seccion}}</h1>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="isScanning" class="scanner-container">
+    <div *ngIf="mostrarMensaje" class="mensaje-centro">
+      {{mensajeTexto}} <span *ngIf="nombreAlumnoDestacado" class="alumno-nombre">{{nombreAlumnoDestacado}}</span>
+    </div>
+
+
+    <div class="scanner-overlay">
+      <div class="scanner-placeholder">
+        <ion-spinner name="lines" color="light"></ion-spinner>
+        <p>Escaneando código QR...</p>
+
+        <!-- Botón para cancelar (ahora llama a startNativeScan para cerrar) -->
+          <ion-button fill="outline" color="light"
+                      (click)="isScanning = false" class="boton-cancelar">
+            <ion-icon slot="start" name="close"></ion-icon>
+            Cancelar
+          </ion-button>
+      </div>
+    </div>
+</div>
+
+
+  <div *ngIf="!isScanning">
+    <ion-list *ngIf="!cargando; else loading">
+      <ion-item *ngFor="let alumno of alumnos; let i = index" class="item-alumno">
+        <ion-label>{{alumno.nombre}}</ion-label>
+        <ion-select [(ngModel)]="alumno.estado" (ionChange)="cambiarEstado(i, alumno.estado)" interface="popover">
+          <ion-select-option value="presente">Presente</ion-select-option>
+          <ion-select-option value="ausente">Ausente</ion-select-option>
+          <ion-select-option value="justificado">Justificado</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+
+    <ion-button expand="block" (click)="guardarAsistencia()" *ngIf="!cargando" class="boton-guardar">
+      Guardar asistencia
+    </ion-button>
+  </div>
+
+  <ng-template #loading>
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Cargando lista de alumnos...</p>
+    </div>
+  </ng-template>
+</ion-content>

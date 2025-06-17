@@ -13,14 +13,17 @@ import { AppComponent } from './app/app.component';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideFirestore, getFirestore } from '@angular/fire/firestore';
 
-import { environment } from './environments/environment'; // importa tu archivo de claves
+import { environment } from './environments/environment';
+import { defineCustomElements } from '@ionic/core/loader';
+
+defineCustomElements(window);
 
 bootstrapApplication(AppComponent, {
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), // <-- Firebase App
-    provideFirestore(() => getFirestore()), // <-- Firestore
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
+    provideFirestore(() => getFirestore()),
   ],
 });

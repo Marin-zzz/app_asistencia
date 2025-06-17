@@ -1,14 +1,71 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home-profesor</ion-title>
-  </ion-toolbar>
+
 <ion-header>
   <ion-toolbar>
-    <ion-title>Inicio Profesor</ion-title>
+    <ion-title>
+      <div class="logo-container">
+       <img src="assets/logos/duoc-logo.png" alt="Duoc UC Seal" class="header-seal">
+      </div>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-button (click)="logout()">Cerrar sesión</ion-button>
-  <!-- Aquí puedes agregar más contenido específico para el inicio de profesor -->
+  <div class="main-container">
+
+    <!-- Sección de Bienvenida y Hora -->
+    <div class="welcome-section">
+      <div class="current-time-info">
+        <span>{{ fechaActual }}</span>
+        <span>{{ horaActual }}</span>
+      </div>
+      <h1 class="welcome-greeting">Hola,</h1>
+      <p class="professor-name">{{ nombre }}</p>
+    </div>
+
+    <!-- Sección de Clases -->
+    <div class="schedule-section">
+      <h2>Tus Clases Asignadas</h2>
+
+      <!-- Selector de Días con Chips (usando ion-radio-group para ionChange) -->
+      <ion-item class="day-selector">
+        <ion-label>Día</ion-label>
+        <ion-select [(ngModel)]="diaSeleccionado" (ionChange)="cambioDia()" placeholder="Selecciona un día">
+          <ion-select-option *ngFor="let d of diasSemana" [value]="d.valor">
+            {{ d.texto }}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      
+      <!-- Lista de Asignaturas -->
+      <ion-list *ngIf="asignaturas.length > 0; else sinAsignaturas" class="ion-no-padding">
+        <ion-card *ngFor="let a of asignaturas" (click)="irALista(a)" button="true">
+          <ion-card-header>
+            <ion-card-subtitle>{{ a.horario }}</ion-card-subtitle>
+            <ion-card-title>{{ a.nombre }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-label>Sección: {{ a.seccion }}</ion-label>
+            <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+
+      <!-- Mensaje cuando no hay asignaturas -->
+      <ng-template #sinAsignaturas>
+        <div class="no-classes-container">
+          <ion-icon name="school-outline"></ion-icon>
+          <p>No tienes asignaturas asignadas para {{ diaSeleccionado }}.</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
 </ion-content>
+
+<ion-footer class="ion-no-border">
+  <ion-toolbar>
+    <ion-button expand="block" color="danger" class="logout-button" (click)="logout()">
+      <ion-icon slot="start" name="log-out-outline"></ion-icon>
+      Cerrar Sesión
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,0 +1,192 @@
+// Variables de color para consistencia
+:root {
+  --ion-color-primary: #fec107; // Dorado/Amarillo
+  --ion-color-dark-contrast: #ffffff;
+  --ion-background-color: #121212; // Un negro más suave que el puro
+  --ion-card-background: #1e1e1e; // Color para las tarjetas
+}
+
+// Estilos Generales
+ion-content {
+  --background: var(--ion-background-color);
+  --color: #121212;
+}
+
+ion-toolbar {
+  --background: #000;
+  --color: #ffffff;
+  --border-width: 0 !important;
+}
+
+.logo-container{
+  width: 200px;
+}
+
+.main-container {
+  padding: 0 16px;
+}
+
+// Sección de Bienvenida
+.welcome-section {
+  padding: 24px 0;
+  .welcome-title {
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #a0a0a0;
+    margin: 0;
+  }
+  .student-name {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #fec107;
+    margin-top: 4px;
+  }
+}
+
+// Sección del Horario
+.schedule-section h2 {
+  font-size: 1.4em;
+  font-weight: bold;
+  border-bottom: 2px solid #fec107;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+}
+
+// Selector de Días (Chips)
+.day-selector {
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+  display: flex;
+  overflow-x: auto;
+  padding-bottom: 16px;
+  // Ocultar la barra de scroll para un look más limpio
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+ion-chip {
+  --background: #333;
+  --color: #fff;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  &.selected {
+    --background: #fec107;
+    --color: #000;
+    font-weight: bold;
+  }
+}
+
+// Tarjetas de Asignatura
+ion-card {
+  --background: #1e1e1e;
+  --color: #fff;
+  border-radius: 12px;
+  margin: 25px 0 16px 0;
+  box-shadow: none;
+  border-left: 4px solid #fec107;
+
+  ion-card-header {
+    padding-bottom: 8px;
+  }
+  ion-card-subtitle {
+    color: #fff;
+    font-weight: 600;
+  }
+  ion-card-title {
+    color: #fff;
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  ion-card-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 0;
+    font-size: 1em;
+    ion-icon {
+      font-size: 1.8em;
+      color: #fec107;
+    }
+  }
+}
+
+// Mensaje de "Sin Asignaturas"
+.no-classes-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+  ion-icon {
+    font-size: 4em;
+    margin-bottom: 16px;
+  }
+  p {
+    font-size: 1.1em;
+  }
+}
+
+// Contenedor del QR
+.qr-container {
+  background: #1e1e1e;
+  border-radius: 12px;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #fff;
+
+  .qr-code-wrapper {
+    padding: 16px;
+    border-radius: 8px;
+    display: inline-block;
+    margin: 16px 0;
+  }
+  p {
+    color: #fff;
+    font-size: 0.9em;
+  }
+  ion-button {
+    margin-top: 16px;
+  }
+}
+
+// Footer y Botón de Cerrar Sesión
+ion-footer {
+  ion-toolbar {
+    padding: 0 16px 16px 16px;
+  }
+  .logout-button {
+    margin: 0;
+    --border-radius: 12px;
+  }
+}
+
+// Sección de Bienvenida
+.welcome-section {
+  padding: 24px 0;
+  
+  .current-time-info {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9em;
+    color: #a0a0a0;
+    margin-bottom: 16px;
+  }
+
+  .welcome-title {
+    font-size: 1.5em;
+    font-weight: 300;
+    color: #a0a0a0;
+    margin: 0;
+  }
+  
+  .student-name {
+    font-size: 2.2em;
+    font-weight: bold;
+    color: #fec107;
+    margin-top: 4px;
+  }
+}

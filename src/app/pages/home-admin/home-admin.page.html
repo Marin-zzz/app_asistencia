@@ -1,14 +1,29 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home-admin</ion-title>
-  </ion-toolbar>
 <ion-header>
   <ion-toolbar>
-    <ion-title>Inicio Administrador</ion-title>
+    <ion-title>Admin Home</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-button (click)="logout()">Cerrar sesión</ion-button>
-  <!-- Aquí puedes agregar más contenido específico para el inicio de administrador -->
+<ion-content class="ion-padding" fullscreen>
+  <h2>Bienvenido {{ nombre }}</h2>
+
+  <ion-button expand="block" (click)="irAUsuarios()">
+    Usuarios
+  </ion-button>
+
+  <ion-button expand="block" (click)="irAAsignaturas()">
+    Asignaturas
+  </ion-button>
+
+  <ion-button expand="block" (click)="irARegistroAsignaturas()">
+    Registro de asistencia
+  </ion-button>
+
+  <div style="flex: 1 1 auto;"></div>
+
+  <div class="ion-padding" style="margin-top: 50px; text-align: center;">
+    <ion-button color="danger" expand="block" (click)="logout()">
+      Cerrar sesión
+    </ion-button>
+  </div>
 </ion-content>
