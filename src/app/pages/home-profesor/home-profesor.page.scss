@@ -8,7 +8,7 @@
 
 // Estilos Generales
 ion-content {
-  --background: #ffffff;
+  --background: black;
   --color: #000;
 }
 
@@ -72,33 +72,29 @@ ion-toolbar {
   scrollbar-width: none;
 }
 
-.day-selector ion-item {
-  --background: transparent;
-  --padding-start: 0;
-  --padding-end: 4px;
+// Selector de Días
+.day-selector {
+  --background: #333333;
+  --color: #ffffff;
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
   --inner-padding-end: 0;
-  margin-right: 8px;
+  
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 
-  ion-radio {
-    padding: 8px 16px;
-    background: #333;
-    color: #fff;
-    border-radius: 20px;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    margin: 0;
+  ion-label {
+    color: white;
+    font-weight: bold;
+  }
 
-    &::part(mark), &::part(container) {
-      display: none;
-    }
-
-    &.radio-checked {
-      background: var(--ion-color-primary);
-      color: #000;
-      font-weight: bold;
-    }
+  ion-select {
+    --placeholder-color: #a0a0a0;
+    --padding-end: 0;
   }
 }
+
 
 // Tarjetas de Asignatura
 ion-card {
@@ -158,4 +154,12 @@ ion-footer {
     margin: 0;
     --border-radius: 12px;
   }
+}
+
+// Estilos lista de asignaturas
+ion-list {
+  background: #333333;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 16px 0;
 }

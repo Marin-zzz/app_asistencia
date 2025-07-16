@@ -8,9 +8,10 @@
 
 // Estilos Generales
 ion-content {
-  --background: var(--ion-background-color);
-  --color: #121212;
+  --background: black;
+  --color: #000;
 }
+
 
 ion-toolbar {
   --background: #000;
@@ -52,15 +53,26 @@ ion-toolbar {
   margin-bottom: 16px;
 }
 
-// Selector de Días (Chips)
+// Selector de Días
 .day-selector {
-  box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
-  display: flex;
-  overflow-x: auto;
-  padding-bottom: 16px;
-  // Ocultar la barra de scroll para un look más limpio
-  &::-webkit-scrollbar {
-    display: none;
+  --background: #333333;
+  --color: #ffffff;
+  --border-radius: 8px;
+  --padding-start: 16px;
+  --padding-end: 16px;
+  --inner-padding-end: 0;
+  
+  margin: 8px 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+
+  ion-label {
+    color: white;
+    font-weight: bold;
+  }
+
+  ion-select {
+    --placeholder-color: #a0a0a0;
+    --padding-end: 0;
   }
 }
 
@@ -189,4 +201,12 @@ ion-footer {
     color: #fec107;
     margin-top: 4px;
   }
+}
+
+// Estilos lista de asignaturas
+ion-list {
+  background: #333333;
+  border-radius: 12px;
+  padding: 8px;
+  margin: 16px 0;
 }

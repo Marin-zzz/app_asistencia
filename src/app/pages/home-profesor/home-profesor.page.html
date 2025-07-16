@@ -9,7 +9,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content> 
   <div class="main-container">
 
     <!-- Sección de Bienvenida y Hora -->
@@ -18,13 +18,13 @@
         <span>{{ fechaActual }}</span>
         <span>{{ horaActual }}</span>
       </div>
-      <h1 class="welcome-greeting">Hola,</h1>
+      <h1 class="welcome-greeting">Bienvenido de nuevo, {{ tipo }}</h1>
       <p class="professor-name">{{ nombre }}</p>
     </div>
 
     <!-- Sección de Clases -->
     <div class="schedule-section">
-      <h2>Tus Clases Asignadas</h2>
+      <h2 style="color: white;">Tus Clases Asignadas</h2>
 
       <!-- Selector de Días con Chips (usando ion-radio-group para ionChange) -->
       <ion-item class="day-selector">

@@ -16,10 +16,10 @@
   </ion-toolbar>
 </ion-header> 
 
-  <h1 style="margin-left: 15px;">{{asignatura?.nombre}} - {{ asignatura?.seccion}}</h1>
+
 
 <ion-content class="ion-padding">
-
+  <h1 style="color: white;">{{asignatura?.nombre}} - {{ asignatura?.seccion}}</h1>
   <div *ngIf="isScanning" class="scanner-container">
     <div *ngIf="mostrarMensaje" class="mensaje-centro">
       {{mensajeTexto}} <span *ngIf="nombreAlumnoDestacado" class="alumno-nombre">{{nombreAlumnoDestacado}}</span>
@@ -39,11 +39,11 @@
           </ion-button>
       </div>
     </div>
-</div>
+  </div>
 
 
   <div *ngIf="!isScanning">
-    <ion-list *ngIf="!cargando; else loading">
+    <ion-list style="background-color: black;" *ngIf="!cargando; else loading">
       <ion-item *ngFor="let alumno of alumnos; let i = index" class="item-alumno">
         <ion-label>{{alumno.nombre}}</ion-label>
         <ion-select [(ngModel)]="alumno.estado" (ionChange)="cambiarEstado(i, alumno.estado)" interface="popover">
