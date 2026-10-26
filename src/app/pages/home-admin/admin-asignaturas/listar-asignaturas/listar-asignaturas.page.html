@@ -1,0 +1,35 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Lista de asignaturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <ion-button expand="block" (click)="crearAsignatura()">
+    Crear Asignatura
+  </ion-button>
+
+  <ion-list>
+    <ion-item *ngFor="let asignatura of asignaturas">
+      <ion-label>
+        <h2>{{ asignatura.nombre }} ({{ asignatura.seccion }})</h2>
+        <p>{{ asignatura.dia }} - {{ asignatura.horario }}</p>
+        <p>Alumnos: {{ asignatura.alumnos?.length || 0 }}</p>
+        <p>Profesores: {{ asignatura.profesores?.length || 0 }}</p>
+      </ion-label>
+      <ion-button color="primary" fill="clear" slot="end" (click)="editarAsignatura(asignatura.id)">
+        Editar
+      </ion-button>
+      <ion-button color="danger" fill="clear" slot="end" (click)="eliminarAsignatura(asignatura.id)">
+        Eliminar
+      </ion-button>
+    </ion-item>
+  </ion-list>
+
+</ion-content>

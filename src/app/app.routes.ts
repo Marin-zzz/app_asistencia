@@ -27,4 +27,50 @@ export const routes: Routes = [
     path: 'alumno-home',
     loadComponent: () => import('./pages/home-alumno/home-alumno.page').then(m => m.HomeAlumnoPage)
   },
+  {
+    path: 'lista-alumnos',
+    loadComponent: () => import('./pages/lista-alumnos/lista-alumnos.page').then( m => m.ListaAlumnosPage)
+  },
+  {
+    path: 'admin-crear-usuario',
+    loadComponent: () => import('./pages/home-admin/admin-usuarios/admin-crear-usuario/admin-crear-usuario.page').then( m => m.AdminCrearUsuarioPage)
+  },
+  {
+    path: 'admin-usuarios',
+    loadComponent: () => import('./pages/home-admin/admin-usuarios/admin-usuarios.page').then( m => m.AdminUsuariosPage)
+  },
+  {
+    path: 'admin-listar-usuarios',
+    loadComponent: () => import('./pages/home-admin/admin-usuarios/admin-listar-usuarios/admin-listar-usuarios.page').then( m => m.AdminListarUsuariosPage)
+  },
+  {
+    path: 'admin-editar-usuario',
+    loadComponent: () => import('./pages/home-admin/admin-usuarios/admin-editar-usuario/admin-editar-usuario.page').then( m => m.AdminEditarUsuarioPage)
+  },
+  {
+    path: 'admin-asignaturas',
+    loadComponent: () => import('./pages/home-admin/admin-asignaturas/admin-asignaturas.page').then( m => m.AdminAsignaturasPage)
+  },
+  {
+    path: 'crear-asignatura',
+    loadComponent: () => import('./pages/home-admin/admin-asignaturas/crear-asignatura/crear-asignatura.page').then( m => m.CrearAsignaturaPage)
+  },
+  {
+    path: 'listar-asignaturas',
+    loadComponent: () => import('./pages/home-admin/admin-asignaturas/listar-asignaturas/listar-asignaturas.page').then( m => m.ListarAsignaturasPage)
+  },
+  {
+    path: 'editar-asignatura/:id',
+    loadComponent: () => import('./pages/home-admin/admin-asignaturas/editar-asignatura/editar-asignatura.page').then( m => m.EditarAsignaturaPage)
+  },  {
+    path: 'admin-registro-asistencia',
+    loadComponent: () => import('./pages/home-admin/admin-registro-asistencia/admin-registro-asistencia.page').then( m => m.AdminRegistroAsistenciaPage)
+  },
+  {
+    path: 'asignatura-detalle-admin',
+    loadComponent: () => import('./pages/home-admin/admin-registro-asistencia/asignatura-detalle-admin/asignatura-detalle-admin.page').then( m => m.AsignaturaDetalleAdminPage)
+  },
+
+
+
 ];

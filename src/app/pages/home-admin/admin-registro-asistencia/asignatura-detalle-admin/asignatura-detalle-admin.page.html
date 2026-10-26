@@ -1,0 +1,57 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="volver()">
+        <ion-icon name="arrow-back-outline" slot="icon-only"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Registros de asignaturas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list *ngIf="registros.length > 0; else noRegistros">
+    <ion-item *ngFor="let registro of registros">
+      <ion-label>
+        <h2>{{ registro.nombreCompleto }}</h2>
+        <p>Fecha de creación: {{ registro.fechaCreacion }}</p>
+        
+        <p>
+          Última actualización: 
+          <span *ngIf="registro.fechaActualizacion; else noFechaActualizacion">
+            {{ registro.fechaActualizacion }}
+          </span>
+          <ng-template #noFechaActualizacion>
+            No hay fecha de actualización
+          </ng-template>
+        </p>
+
+        <p>Profesor que creó: {{ registro.profesor }}</p>
+
+        <p>
+          Profesor que actualizó: 
+          <span *ngIf="registro.profesorActualizacion; else noProfesorActualizacion">
+            {{ registro.profesorActualizacion }}
+          </span>
+          <ng-template #noProfesorActualizacion>
+            No hay profesor que haya actualizado
+          </ng-template>
+        </p>
+
+        <ion-list>
+          <ion-item *ngFor="let alumno of registro.alumnos">
+            <ion-label>
+              <strong>{{ alumno.nombre }}</strong> - {{ alumno.estado }}
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <ng-template #noRegistros>
+    <p class="ion-text-center ion-padding">
+      No hay registro de asistencia para esta asignatura.
+    </p>
+  </ng-template>
+</ion-content>

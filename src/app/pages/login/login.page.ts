@@ -4,11 +4,17 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
+import { person } from 'ionicons/icons';
+import { addIcons } from 'ionicons';
+addIcons({
+  'person': person
+});
 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
+  styleUrls: ['./login.page.scss'],
   imports: [
     CommonModule,
     IonicModule,

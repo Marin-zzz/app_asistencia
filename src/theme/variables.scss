@@ -1,2 +1,18 @@
 // For information on how to create your own theme, please see:
 // http://ionicframework.com/docs/theming/
+ion-toolbar {
+    padding: 10px;
+  ion-title {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+
+  ion-buttons {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: normal;
+  }
+}
