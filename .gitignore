@@ -48,6 +48,10 @@ web_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# Angular and Ionic generated files
+.angular/
+www/
+
 # Optional npm cache directory
 .npm
 
